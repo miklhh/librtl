@@ -1,0 +1,6 @@
+.cache/
+
+# subprojects
+subprojects/abseil-cpp-*/
+subprojects/fmt-*/
+subprojects/packagecache/
