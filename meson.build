@@ -7,9 +7,10 @@ project('librtl', 'cpp',
 
 fmt = dependency('fmt', default_options: ['header-only=true'])
 absl = dependency('absl_container')
+catch2_with_main = dependency('catch2-with-main')
 
-executable('librtl', sources: files(
+executable('librtl-test', sources: files(
     'src/main.cc'
   ),
-  dependencies: [absl, fmt]
+  dependencies: [absl, fmt, catch2_with_main]
 )

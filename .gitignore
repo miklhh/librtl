@@ -3,4 +3,5 @@
 # subprojects
 subprojects/abseil-cpp-*/
 subprojects/fmt-*/
+subprojects/Catch2-*/
 subprojects/packagecache/
