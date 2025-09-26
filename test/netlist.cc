@@ -1,7 +1,5 @@
 #include <absl/container/flat_hash_map.h>
-
 #include <fmt/format.h>
-
 #include <catch2/catch_test_macros.hpp>
 
 
@@ -24,5 +22,5 @@ TEST_CASE("flat_hash_map")
         { 2, "hello" },
         { 1337, "elite" },
     };
-    REQUIRE(map[1] == "elite");
+    REQUIRE(map[1337] == "elite");
 }

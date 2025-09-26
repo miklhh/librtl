@@ -5,12 +5,15 @@ project('librtl', 'cpp',
                     'warning_level=2', ]
 )
 
-fmt = dependency('fmt', default_options: ['header-only=true'])
-absl = dependency('absl_container')
-catch2_with_main = dependency('catch2-with-main')
+json = subproject('json')
+json_dep = json.get_variable('nlohmann_json_dep')
+absl_dep = dependency('absl_container')
+catch2_with_main_dep = dependency('catch2-with-main')
+fmt = subproject('fmt', default_options: ['header-only=true'])
+fmt_dep = fmt.get_variable('fmt_header_only_dep')
 
 executable('librtl-test', sources: files(
-    'src/main.cc'
+    'test/netlist.cc',
   ),
-  dependencies: [absl, fmt, catch2_with_main]
+  dependencies: [absl_dep, catch2_with_main_dep, fmt_dep, json_dep]
 )
