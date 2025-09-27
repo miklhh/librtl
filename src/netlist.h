@@ -2,37 +2,36 @@
 #define _LIBRTL_NETLIST_H
 
 #include "librtl-util.h"
+#include "component.h"
 
-#include <string>
 #include <vector>
-#include <optional>
 
 
 LIBRTL_NAMESPACE_BEGIN(rtl)
 
-struct In { std::optional<std::string> name = std::nullopt; };
-struct Out { std::optional<std::string> name = std::nullopt; };
-
-class Node {
-    std::vector<In> in;
-    std::vector<Out> out;
+// Endpoint of a wire
+struct WireHandle {
+    Component* component;
+    unsigned idx;
 };
 
-class Net {
-public:
-    In* dst;
-    Out* src;
+static WireHandle wire_handle(Component* component, unsigned idx)
+{
+    return WireHandle{ .component = component, .idx = idx };
+}
+
+// Wires within a netlist
+struct Wire {
+    WireHandle src, dst;
 };
 
 class Netlist {
 public: 
-    std::vector<Node> nodes;
-    std::vector<Net> nets;
+    std::vector<Component> components;
+    std::vector<Wire> wires;
 
     // Serialize to JSON format
-    void serialize_json() const {
-
-    }
+    void serialize_json() const;
 };
 
 LIBRTL_NAMESPACE_END(rtl)
