@@ -43,7 +43,7 @@ def get_include_dir(wrap_file: str, under_dir: str | None = None) -> str:
         subproject_dir = f"{DIR}/subprojects/{parser['wrap-file']['directory']}"
     except:
         subproject_dir = f"{DIR}/subprojects/{wrap_file[:-5]}"
-   
+
     if under_dir is not None:
         return f"{subproject_dir}/{under_dir}"
     else:

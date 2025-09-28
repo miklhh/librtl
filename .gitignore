@@ -3,6 +3,9 @@
 # Ignore `.clangd`. Use the `.clangd-gen.py` script to generate a new one
 .clangd
 
+# Ignore Python virtual environment
+venv/
+
 # subprojects
 subprojects/abseil-cpp-*/
 subprojects/fmt-*/

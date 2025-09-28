@@ -1,12 +1,11 @@
 #ifndef _LIBRTL_COMPONENTS_H
 #define _LIBRTL_COMPONENTS_H
 
-#include "librtl-util.h"
+#include "src/librtl-util.h"
 
 #include <functional>
 #include <tuple>
 #include <vector>
-
 
 NAMESPACE_BEGIN(rtl)
 
@@ -25,14 +24,15 @@ enum ComponentTypeTag {
 };
 
 // Raw handle to an `rtl::Component` in an `rtl::Netlist`. The component handles are
-// persistant "pointers" to objects in the netlist.
+// persistent "pointers" to objects in the netlist.
 using ComponentHandleRaw = std::size_t;
 
 // User handle to an input of an `rtl::Component` in an `rtl::Netlist`
 struct ComponentInputHandle {
     ComponentHandleRaw handle_raw;
     std::size_t idx;
-    bool operator==(const ComponentInputHandle& rhs) const noexcept {
+    bool operator==(const ComponentInputHandle& rhs) const noexcept
+    {
         using std::make_tuple;
         return make_tuple(handle_raw, idx) == make_tuple(rhs.handle_raw, rhs.idx);
     }
@@ -42,7 +42,8 @@ struct ComponentInputHandle {
 struct ComponentOutputHandle {
     ComponentHandleRaw handle_raw;
     std::size_t idx;
-    bool operator==(const ComponentOutputHandle& rhs) const noexcept {
+    bool operator==(const ComponentOutputHandle& rhs) const noexcept
+    {
         using std::make_tuple;
         return make_tuple(handle_raw, idx) == make_tuple(rhs.handle_raw, rhs.idx);
     }
@@ -54,12 +55,12 @@ struct ComponentHandle {
 
     ComponentInputHandle in(unsigned i) const noexcept
     {
-        return ComponentInputHandle{ .handle_raw = handle_raw, .idx = i };
+        return ComponentInputHandle { .handle_raw = handle_raw, .idx = i };
     }
 
     ComponentOutputHandle out(unsigned i) const noexcept
     {
-        return ComponentOutputHandle{ .handle_raw = handle_raw, .idx = i };
+        return ComponentOutputHandle { .handle_raw = handle_raw, .idx = i };
     }
 
     bool operator==(const ComponentHandle& rhs) const noexcept
@@ -78,14 +79,13 @@ struct Component {
     std::vector<ComponentInputHandle> out;
 };
 
-
-template<ComponentTypeTag TAG, unsigned N_INPUTS, unsigned N_OUTPUTS>
+template <ComponentTypeTag TAG, unsigned N_INPUTS, unsigned N_OUTPUTS>
 static inline Component make_component()
 {
-    return Component{
-        .info{ .tag = TAG },
-        .in{ std::vector<ComponentOutputHandle>(N_INPUTS) },
-        .out{ std::vector<ComponentInputHandle>(N_OUTPUTS) },
+    return Component {
+        .info { .tag = TAG },
+        .in { std::vector<ComponentOutputHandle>(N_INPUTS) },
+        .out { std::vector<ComponentInputHandle>(N_OUTPUTS) },
     };
 }
 
@@ -94,9 +94,9 @@ static inline Component make_or2() { return make_component<OR2, 2, 1>(); }
 
 NAMESPACE_END(rtl)
 
-template<>
-struct std::hash<rtl::ComponentHandle> {
-    std::size_t operator()(const rtl::ComponentHandle& handle) const noexcept {
+template <> struct std::hash<rtl::ComponentHandle> {
+    std::size_t operator()(const rtl::ComponentHandle& handle) const noexcept
+    {
         return std::hash<std::size_t>()(handle.handle_raw);
     }
 };
