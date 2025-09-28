@@ -1,8 +1,12 @@
 .cache/
 
+# Ignore `.clangd`. Use the `.clangd-gen.py` script to generate a new one
+.clangd
+
 # subprojects
 subprojects/abseil-cpp-*/
 subprojects/fmt-*/
 subprojects/Catch2-*/
 subprojects/json-*/
+subprojects/magic_enum-*/
 subprojects/packagecache/

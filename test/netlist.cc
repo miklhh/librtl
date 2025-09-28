@@ -10,11 +10,18 @@
 
 TEST_CASE("Basic gate test")
 {
-    auto and2 = rtl::make_and2();
-    and2.input_handle(0);
     rtl::Netlist netlist;
-    netlist.components.emplace_back(rtl::make_and2());
-    netlist.components.emplace_back(rtl::make_or2());
+    rtl::ComponentHandle and2_1 = netlist.component_emplace(rtl::make_and2());
+    rtl::ComponentHandle and2_2 = netlist.component_emplace(rtl::make_and2());
+
+    auto abc = rtl::make_and2();
+
+    netlist.wire_add(and2_1.in(0), and2_2.out(0));
+
+
+    std::cout << netlist.pretty_str() << std::endl;
+
+
 
 }
 
